@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color Palette — Deep Space theme */
+  --bg-base: #050810;
+  --bg-surface: #0c1020;
+  --bg-elevated: #111827;
+  --bg-hover: #1a2235;
+
+  --border-subtle: rgba(99, 117, 189, 0.12);
+  --border-default: rgba(99, 117, 189, 0.25);
+  --border-strong: rgba(99, 117, 189, 0.45);
+
+  --accent-primary: #6366f1;
+  --accent-primary-glow: rgba(99, 102, 241, 0.35);
+  --accent-secondary: #8b5cf6;
+  --accent-cyan: #22d3ee;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+
+  /* Agent colors */
+  --agent-pm: #8b5cf6;
+  --agent-architect: #6366f1;
+  --agent-developer: #22d3ee;
+  --agent-qa: #10b981;
+  --agent-security: #f43f5e;
+  --agent-devops: #f59e0b;
+  --agent-reviewer: #fb923c;
+  --agent-docs: #a78bfa;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #475569;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-surface); }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+
+/* Glass morphism utility */
+.glass {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-strong {
+  background: rgba(12, 16, 32, 0.85);
+  backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid var(--border-default);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effects */
+.glow-primary {
+  box-shadow: 0 0 20px var(--accent-primary-glow), 0 0 60px rgba(99,102,241,0.1);
+}
+
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 10px var(--accent-primary-glow); }
+  50% { box-shadow: 0 0 25px var(--accent-primary-glow), 0 0 50px rgba(99,102,241,0.15); }
+}
+
+/* Agent status indicators */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.idle { background: var(--text-muted); }
+.status-dot.thinking { background: var(--accent-amber); animation: pulse 1s infinite; }
+.status-dot.executing { background: var(--accent-primary); animation: pulse 0.7s infinite; }
+.status-dot.done { background: var(--accent-emerald); }
+.status-dot.failed { background: var(--accent-rose); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* Code blocks */
+code, pre {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.5s ease forwards; }
+.animate-slide-in { animation: slideInRight 0.3s ease forwards; }
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--bg-elevated) 25%,
+    var(--bg-hover) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Kanban board styles */
+.kanban-column {
+  min-height: 400px;
+  transition: background 0.2s;
+}
+
+.kanban-column.drag-over {
+  background: rgba(99,102,241,0.08);
+  border-color: var(--accent-primary);
+}
+
+/* Log entry animations */
+.log-entry {
+  animation: slideInRight 0.2s ease forwards;
+  border-left: 2px solid transparent;
+  padding-left: 12px;
+}
+.log-entry.info { border-left-color: var(--accent-primary); }
+.log-entry.warning { border-left-color: var(--accent-amber); }
+.log-entry.error { border-left-color: var(--accent-rose); }
+.log-entry.success { border-left-color: var(--accent-emerald); }
