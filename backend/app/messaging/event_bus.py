@@ -6,10 +6,13 @@ Supports pub/sub with typed message routing and async handlers.
 import asyncio
 import json
 from typing import Callable, Dict, List
-import redis.asyncio as aioredis
+from app.config import settings
 import structlog
 
-from app.config import settings
+if settings.REDIS_URL.startswith("memory://"):
+    import fakeredis.aioredis as aioredis
+else:
+    import redis.asyncio as aioredis
 
 logger = structlog.get_logger(__name__)
 

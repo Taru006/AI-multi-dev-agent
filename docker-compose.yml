@@ -144,6 +144,20 @@ services:
     networks:
       - ai_network
 
+  # ─── Execution Sandbox ────────────────────────────────────────────────────────
+  sandbox:
+    build:
+      context: ./sandbox
+      dockerfile: Dockerfile.sandbox
+    container_name: ai_agency_sandbox
+    ports:
+      - "8080:8080"
+    volumes:
+      - artifacts_data:/workspace
+    networks:
+      - ai_network
+
+
 volumes:
   postgres_data:
   redis_data:

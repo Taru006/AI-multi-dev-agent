@@ -1,0 +1,29 @@
+# Environment variables (NEVER commit secrets)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+*.db
+*.sqlite3
+celery_results.db
+chroma_data/
+artifacts/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+npm-debug.log*
+
+# Misc
+.DS_Store
+*.log

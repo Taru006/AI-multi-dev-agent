@@ -1,0 +1,28 @@
+# Sandbox Environment for AI Dev Agency
+# This container runs an isolated environment where the Developer Agent can execute code securely.
+
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js (for React/Frontend execution if needed)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
+# Set up working directory
+WORKDIR /workspace
+
+# Install Python requirements for the runner
+COPY runner.py /app/runner.py
+RUN pip install fastapi uvicorn pydantic
+
+# Expose port for the RPC runner
+EXPOSE 8080
+
+# Start the RPC runner
+CMD ["uvicorn", "app.runner:app", "--host", "0.0.0.0", "--port", "8080"]
